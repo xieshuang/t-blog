@@ -1,0 +1,159 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="ASUS (generated)" id="1521619870179-1">
+        <createTable tableName="t_attach">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="fname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ftype" type="VARCHAR(50)"/>
+            <column defaultValue="" name="fkey" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_id" type="INT"/>
+            <column name="created" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-2">
+        <createTable tableName="t_comments">
+            <column autoIncrement="true" name="coid" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="cid" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="0" name="created" type="INT UNSIGNED"/>
+            <column name="author" type="VARCHAR(200)"/>
+            <column defaultValueNumeric="0" name="author_id" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="0" name="owner_id" type="INT UNSIGNED"/>
+            <column name="mail" type="VARCHAR(200)"/>
+            <column name="url" type="VARCHAR(200)"/>
+            <column name="ip" type="VARCHAR(64)"/>
+            <column name="agent" type="VARCHAR(200)"/>
+            <column name="content" type="TEXT"/>
+            <column defaultValue="comment" name="type" type="VARCHAR(16)"/>
+            <column defaultValue="approved" name="status" type="VARCHAR(16)"/>
+            <column defaultValueNumeric="0" name="parent" type="INT UNSIGNED"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-3">
+        <createTable tableName="t_contents">
+            <column autoIncrement="true" name="cid" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(200)"/>
+            <column name="slug" type="VARCHAR(200)"/>
+            <column defaultValueNumeric="0" name="created" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="0" name="modified" type="INT UNSIGNED"/>
+            <column name="content" remarks="内容文字" type="TEXT"/>
+            <column defaultValueNumeric="0" name="author_id" type="INT UNSIGNED"/>
+            <column defaultValue="post" name="type" type="VARCHAR(16)"/>
+            <column defaultValue="publish" name="status" type="VARCHAR(16)"/>
+            <column name="tags" type="VARCHAR(200)"/>
+            <column name="categories" type="VARCHAR(200)"/>
+            <column defaultValueNumeric="0" name="hits" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="0" name="comments_num" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="1" name="allow_comment" type="BIT"/>
+            <column defaultValueNumeric="1" name="allow_ping" type="BIT"/>
+            <column defaultValueNumeric="1" name="allow_feed" type="BIT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-4">
+        <createTable tableName="t_logs">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="action" type="VARCHAR(100)"/>
+            <column name="data" type="VARCHAR(2000)"/>
+            <column name="author_id" type="INT"/>
+            <column name="ip" type="VARCHAR(20)"/>
+            <column name="created" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-5">
+        <createTable tableName="t_metas">
+            <column autoIncrement="true" name="mid" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(200)"/>
+            <column name="slug" type="VARCHAR(200)"/>
+            <column defaultValue="" name="type" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(200)"/>
+            <column defaultValueNumeric="0" name="sort" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="0" name="parent" type="INT UNSIGNED"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-6">
+        <createTable tableName="t_options">
+            <column defaultValue="" name="name" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="value" type="VARCHAR(1000)"/>
+            <column name="description" type="VARCHAR(200)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-7">
+        <createTable tableName="t_relationships">
+            <column name="cid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-8">
+        <createTable tableName="t_users">
+            <column autoIncrement="true" name="uid" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(32)"/>
+            <column name="password" type="VARCHAR(64)"/>
+            <column name="email" type="VARCHAR(200)"/>
+            <column name="home_url" type="VARCHAR(200)"/>
+            <column name="screen_name" type="VARCHAR(32)"/>
+            <column defaultValueNumeric="0" name="created" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="0" name="activated" type="INT UNSIGNED"/>
+            <column defaultValueNumeric="0" name="logged" type="INT UNSIGNED"/>
+            <column defaultValue="visitor" name="group_name" type="VARCHAR(16)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-9">
+        <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="t_options"/>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-10">
+        <addPrimaryKey columnNames="cid, mid" constraintName="PRIMARY" tableName="t_relationships"/>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-11">
+        <addUniqueConstraint columnNames="email" constraintName="mail" tableName="t_users"/>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-12">
+        <addUniqueConstraint columnNames="username" constraintName="name" tableName="t_users"/>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-13">
+        <addUniqueConstraint columnNames="slug" constraintName="slug" tableName="t_contents"/>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-14">
+        <createIndex indexName="cid" tableName="t_comments">
+            <column name="cid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-15">
+        <createIndex indexName="created" tableName="t_comments">
+            <column name="created"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-16">
+        <createIndex indexName="created" tableName="t_contents">
+            <column name="created"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521619870179-17">
+        <createIndex indexName="slug" tableName="t_metas">
+            <column name="slug"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
