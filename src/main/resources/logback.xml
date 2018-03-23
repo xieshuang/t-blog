@@ -4,6 +4,7 @@
     <appender name="LOGSTASH" class="com.cwbase.logback.RedisAppender">
         <host>localhost</host>
         <port>6379</port>
+        <password>redis_passwd_2018</password>>
         <key>spring-boot-blog</key>
     </appender>
     <root level="INFO">
