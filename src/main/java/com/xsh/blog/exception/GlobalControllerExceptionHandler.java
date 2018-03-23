@@ -19,7 +19,7 @@ public class GlobalControllerExceptionHandler {
     public String businessException(Exception e) {
         LOGGER.error("find exception:e={}",e.getMessage());
         e.printStackTrace();
-        return "common/error_500";
+        return "comm/error_500";
     }
 
 
@@ -27,7 +27,7 @@ public class GlobalControllerExceptionHandler {
     public String exception(Exception e){
         LOGGER.error("find exception:e={}",e.getMessage());
         e.printStackTrace();
-        return "common/error_404";
+        return "comm/error_404";
     }
 
 }
