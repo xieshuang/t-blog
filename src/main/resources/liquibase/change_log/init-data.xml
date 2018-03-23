@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="ASUS (generated)" id="1521789629683-1">
+        <insert tableName="t_contents">
+            <column name="cid" valueNumeric="1"/>
+            <column name="title" value="about my blog"/>
+            <column name="slug" value="about"/>
+            <column name="created" valueNumeric="1521789380"/>
+            <column name="modified" valueNumeric="1521789380"/>
+            <column name="content" value="### Hello World&#13;&#10;&#13;&#10;about me&#13;&#10;&#13;&#10;### ...&#13;&#10;&#13;&#10;..."/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="type" value="page"/>
+            <column name="status" value="publish"/>
+            <column name="tags"/>
+            <column name="categories"/>
+            <column name="hits" valueNumeric="1"/>
+            <column name="comments_num" valueNumeric="0"/>
+            <column name="allow_comment" valueBoolean="true"/>
+            <column name="allow_ping" valueBoolean="true"/>
+            <column name="allow_feed" valueBoolean="true"/>
+        </insert>
+        <insert tableName="t_contents">
+            <column name="cid" valueNumeric="2"/>
+            <column name="title" value="Hello 河岸飞流"/>
+            <column name="slug"/>
+            <column name="created" valueNumeric="1521789380"/>
+            <column name="modified" valueNumeric="1521789380"/>
+            <column name="content" value="## Hello  World.&#13;&#10;&#13;&#10;&gt; ...&#13;&#10;&#13;&#10;----------&#13;&#10;&#13;&#10;&#13;&#10;&lt;!--more--&gt;&#13;&#10;&#13;&#10;```java&#13;&#10;public static void main(String[] args){&#13;&#10;    System.out.println(&quot;Hello 河岸飞流.&quot;);&#13;&#10;}&#13;&#10;```"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="type" value="post"/>
+            <column name="status" value="publish"/>
+            <column name="tags" value=""/>
+            <column name="categories" value="default"/>
+            <column name="hits" valueNumeric="36"/>
+            <column name="comments_num" valueNumeric="0"/>
+            <column name="allow_comment" valueBoolean="true"/>
+            <column name="allow_ping" valueBoolean="true"/>
+            <column name="allow_feed" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521789629683-2">
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="1"/>
+            <column name="action" value="登录后台"/>
+            <column name="data"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521595669"/>
+        </insert>
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="2"/>
+            <column name="action" value="登录后台"/>
+            <column name="data"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521783344"/>
+        </insert>
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="3"/>
+            <column name="action" value="保存系统设置"/>
+            <column name="data" value="{&quot;social_zhihu&quot;:&quot;&quot;,&quot;social_github&quot;:&quot;https://github.com/xieshuang&quot;,&quot;social_twitter&quot;:&quot;&quot;,&quot;social_weibo&quot;:&quot;&quot;}"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521783426"/>
+        </insert>
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="4"/>
+            <column name="action" value="保存系统设置"/>
+            <column name="data" value="{&quot;social_zhihu&quot;:&quot;&quot;,&quot;social_github&quot;:&quot;https://github.com/xieshuang&quot;,&quot;social_twitter&quot;:&quot;&quot;,&quot;social_weibo&quot;:&quot;https://weibo.com/346022421&quot;}"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521783460"/>
+        </insert>
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="5"/>
+            <column name="action" value="登录后台"/>
+            <column name="data"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521784595"/>
+        </insert>
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="6"/>
+            <column name="action" value="登录后台"/>
+            <column name="data"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521785092"/>
+        </insert>
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="7"/>
+            <column name="action" value="登录后台"/>
+            <column name="data"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521785492"/>
+        </insert>
+        <insert tableName="t_logs">
+            <column name="id" valueNumeric="8"/>
+            <column name="action" value="登录后台"/>
+            <column name="data"/>
+            <column name="author_id" valueNumeric="1"/>
+            <column name="ip" value="0:0:0:0:0:0:0:1"/>
+            <column name="created" valueNumeric="1521787691"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521789629683-3">
+        <insert tableName="t_options">
+            <column name="name" value="site_description"/>
+            <column name="value" value="河岸飞流"/>
+            <column name="description"/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="site_keywords"/>
+            <column name="value" value="河岸飞流"/>
+            <column name="description"/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="site_record"/>
+            <column name="value" value=""/>
+            <column name="description" value="备案号"/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="site_theme"/>
+            <column name="value" value="default"/>
+            <column name="description"/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="site_title"/>
+            <column name="value" value="河岸飞流"/>
+            <column name="description" value=""/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="social_github"/>
+            <column name="value" value="https://github.com/xieshuang"/>
+            <column name="description"/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="social_twitter"/>
+            <column name="value" value="http://www.cnblogs.com/xieshuang/"/>
+            <column name="description"/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="social_weibo"/>
+            <column name="value" value="https://weibo.com/346022421"/>
+            <column name="description"/>
+        </insert>
+        <insert tableName="t_options">
+            <column name="name" value="social_zhihu"/>
+            <column name="value" value=""/>
+            <column name="description"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521789629683-4">
+        <insert tableName="t_relationships">
+            <column name="cid" valueNumeric="2"/>
+            <column name="mid" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ASUS (generated)" id="1521789629683-5">
+        <insert tableName="t_users">
+            <column name="uid" valueNumeric="1"/>
+            <column name="username" value="admin"/>
+            <column name="password" value="a66abb5684c45962d887564f08346e8d"/>
+            <column name="email" value="346022421@qq.com"/>
+            <column name="home_url"/>
+            <column name="screen_name" value="admin"/>
+            <column name="created" valueNumeric="1521789380"/>
+            <column name="activated" valueNumeric="0"/>
+            <column name="logged" valueNumeric="0"/>
+            <column name="group_name" value="visitor"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
