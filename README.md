@@ -1,4 +1,6 @@
 # 个人博客
+[![](https://img.shields.io/badge/JDK-1.8-green.svg "JDK 1.8")]()
+[![](https://img.shields.io/badge/spring--boot-1.5.9--release-green.svg)]()  
 
 ### 1.涉及技术及工具
 
@@ -19,8 +21,7 @@
 - 5、浏览器访问 ip:8080即可访问
 - 6、可以配置nginx进行代理访问
 
-[![](https://img.shields.io/badge/JDK-1.8-green.svg "JDK 1.8")]()
-[![](https://img.shields.io/badge/spring--boot-1.5.9--release-green.svg)]()  
+### 3.其他碎碎念
 该博客参考了[My blog](https://github.com/ZHENFENG13/My-Blog)。  
 在原博客的基础上，做了两点修改，虽然对博客系统用处不大，属于个人的一种尝试，希望以后的项目中能够用上。  
 1、引入了`liquibase`数据动态迁移，方便数据库的持续集成。  
