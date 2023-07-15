@@ -6,6 +6,7 @@ import com.xsh.blog.dto.MetaDto;
 import com.xsh.blog.dto.Types;
 import com.xsh.blog.model.Bo.RestResponseBo;
 import com.xsh.blog.service.IMetaService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("admin/category")
+@Slf4j
 public class CategoryController extends BaseController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
     @Resource
     private IMetaService metasService;
@@ -42,7 +42,7 @@ public class CategoryController extends BaseController {
             metasService.saveMeta(Types.CATEGORY.getType(), cname, mid);
         } catch (Exception e) {
             String msg = "分类保存失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();
@@ -55,7 +55,7 @@ public class CategoryController extends BaseController {
             metasService.delete(mid);
         } catch (Exception e) {
             String msg = "删除失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();

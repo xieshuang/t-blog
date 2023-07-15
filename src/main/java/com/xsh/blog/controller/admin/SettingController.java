@@ -11,6 +11,7 @@ import com.xsh.blog.service.ILogService;
 import com.xsh.blog.service.IOptionService;
 import com.xsh.blog.service.ISiteService;
 import com.xsh.blog.utils.GsonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,8 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/setting")
+@Slf4j
 public class SettingController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SettingController.class);
 
     @Resource
     private IOptionService optionService;
@@ -103,7 +104,7 @@ public class SettingController extends BaseController {
             if (e instanceof BusinessException) {
                 msg = e.getMessage();
             } else {
-                LOGGER.error(msg, e);
+                log.error(msg, e);
             }
             return RestResponseBo.fail(msg);
         }

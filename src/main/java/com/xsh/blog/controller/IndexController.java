@@ -19,6 +19,7 @@ import com.xsh.blog.service.ISiteService;
 import com.xsh.blog.utils.IPKit;
 import com.xsh.blog.utils.PatternKit;
 import com.xsh.blog.utils.TaleUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +38,8 @@ import java.util.List;
  * 首页
  */
 @Controller
+@Slf4j
 public class IndexController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
-
     @Resource
     private IContentService contentService;
 
@@ -229,7 +229,7 @@ public class IndexController extends BaseController {
             return RestResponseBo.ok();
         } catch (Exception e) {
             String msg = "评论发布失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
     }

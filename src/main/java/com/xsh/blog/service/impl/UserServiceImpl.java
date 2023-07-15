@@ -19,7 +19,6 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements IUserService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Resource
     private UserVoMapper userDao;
