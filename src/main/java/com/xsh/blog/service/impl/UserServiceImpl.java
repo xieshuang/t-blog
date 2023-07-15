@@ -76,7 +76,7 @@ public class UserServiceImpl implements IUserService {
         }
         int i = userDao.updateByPrimaryKeySelective(userVo);
         if (i != 1) {
-            throw new BusinessException("update user by uid and retrun is not one");
+            throw new BusinessException("update user by uid and return is not one");
         }
     }
 }
