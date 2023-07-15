@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by BlueT on 2017/3/16.
  */
 @Service
 public class CommentServiceImpl implements ICommentService {

@@ -17,7 +17,6 @@ import java.util.Arrays;
 
 /**
  * aop
- * Created by wangq on 2017/3/24.
  */
 @Aspect
 @Component

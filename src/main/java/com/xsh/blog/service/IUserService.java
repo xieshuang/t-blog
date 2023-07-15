@@ -4,7 +4,6 @@ package com.xsh.blog.service;
 import com.xsh.blog.model.Vo.UserVo;
 
 /**
- * Created by BlueT on 2017/3/3.
  */
 public interface IUserService {
 

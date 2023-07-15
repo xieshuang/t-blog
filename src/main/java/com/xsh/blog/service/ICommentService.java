@@ -7,7 +7,6 @@ import com.xsh.blog.model.Vo.CommentVo;
 import com.xsh.blog.model.Vo.CommentVoExample;
 
 /**
- * Created by BlueT on 2017/3/16.
  */
 public interface ICommentService {
 

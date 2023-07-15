@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by BlueT on 2017/3/18.
  */
 @Service
 public class RelationshipServiceImpl implements IRelationshipService {

@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.xsh.blog.model.Vo.AttachVo;
 
 /**
- * Created by wangq on 2017/3/20.
  */
 public interface IAttachService {
     /**

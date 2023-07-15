@@ -26,7 +26,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/3/13 013.
  */
 @Service
 public class ContentServiceImpl implements IContentService {

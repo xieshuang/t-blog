@@ -16,7 +16,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by wangq on 2017/3/20.
  */
 @Service
 public class AttachServiceImpl implements IAttachService {

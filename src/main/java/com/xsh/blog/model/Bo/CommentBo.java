@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 返回页面的评论，包含父子评论内容
- * Created by 13 on 2017/2/24.
  */
 public class CommentBo extends CommentVo {
 

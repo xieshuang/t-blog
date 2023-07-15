@@ -14,7 +14,6 @@ import java.util.Random;
 
 /**
  * 工具类
- * Created by BlueT on 2017/3/9.
  */
 public class Tools {
     private static final Random random = new Random();

@@ -6,7 +6,6 @@ import com.xsh.blog.model.Vo.ContentVo;
 import com.xsh.blog.model.Vo.ContentVoExample;
 
 /**
- * Created by Administrator on 2017/3/13 013.
  */
 public interface IContentService {
 

@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * 分类信息service接口
- * Created by BlueT on 2017/3/17.
  */
 public interface IMetaService {
     /**

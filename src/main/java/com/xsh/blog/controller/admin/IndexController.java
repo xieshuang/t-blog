@@ -29,7 +29,6 @@ import java.util.List;
 
 /**
  * 后台管理首页
- * Created by Administrator on 2017/3/9 009.
  */
 @Controller("adminIndexController")
 @RequestMapping("/admin")
