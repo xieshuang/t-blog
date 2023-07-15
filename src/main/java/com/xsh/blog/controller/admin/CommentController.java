@@ -7,6 +7,7 @@ import com.xsh.blog.model.Vo.CommentVo;
 import com.xsh.blog.model.Vo.CommentVoExample;
 import com.xsh.blog.model.Vo.UserVo;
 import com.xsh.blog.service.ICommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("admin/comments")
+@Slf4j
 public class CommentController extends BaseController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommentController.class);
 
     @Resource
     private ICommentService commentsService;
@@ -55,7 +55,7 @@ public class CommentController extends BaseController {
             commentsService.delete(coid, comments.getCid());
         } catch (Exception e) {
             String msg = "评论删除失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();

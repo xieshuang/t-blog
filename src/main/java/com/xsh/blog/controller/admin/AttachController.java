@@ -12,6 +12,7 @@ import com.xsh.blog.service.IAttachService;
 import com.xsh.blog.service.ILogService;
 import com.xsh.blog.utils.Commons;
 import com.xsh.blog.utils.TaleUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("admin/attach")
+@Slf4j
 public class AttachController extends BaseController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AttachController.class);
 
     public static final String CLASSPATH = TaleUtils.getUplodFilePath();
 
@@ -111,7 +111,7 @@ public class AttachController extends BaseController {
             logService.insertLog(LogActions.DEL_ARTICLE.getAction(), attach.getFkey(), request.getRemoteAddr(), this.getUid(request));
         } catch (Exception e) {
             String msg = "附件删除失败";
-            LOGGER.error(msg, e);
+            log.error(msg, e);
             return RestResponseBo.fail(msg);
         }
         return RestResponseBo.ok();
