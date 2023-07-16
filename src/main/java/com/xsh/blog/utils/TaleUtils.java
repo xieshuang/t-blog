@@ -120,7 +120,7 @@ public class TaleUtils {
     public static DataSource getNewDataSource() {
         if (newDataSource == null) synchronized (TaleUtils.class) {
             if (newDataSource == null) {
-                Properties properties = TaleUtils.getPropFromFile("application-default.properties");
+                Properties properties = TaleUtils.getPropFromFile("application-default.yml");
                 if (properties.size() == 0) {
                     return newDataSource;
                 }
