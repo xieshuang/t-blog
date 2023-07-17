@@ -1,14 +1,16 @@
 package com.xsh.blog.service;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.xsh.blog.model.Bo.CommentBo;
 import com.xsh.blog.model.Vo.CommentVo;
-import com.xsh.blog.model.Vo.CommentVoExample;
+import com.xsh.blog.model.entity.Comments;
 
 /**
  */
-public interface ICommentService {
+public interface ICommentService extends IService<Comments> {
 
     /**
      * 保存对象
@@ -27,12 +29,12 @@ public interface ICommentService {
 
     /**
      * 获取文章下的评论
-     * @param commentVoExample
+     * @param queryWrapper
      * @param page
      * @param limit
      * @return CommentVo
      */
-    PageInfo<CommentVo> getCommentsWithPage(CommentVoExample commentVoExample, int page, int limit);
+    PageInfo<CommentVo> getCommentsWithPage(QueryWrapper<Comments> queryWrapper, int page, int limit);
 
 
     /**

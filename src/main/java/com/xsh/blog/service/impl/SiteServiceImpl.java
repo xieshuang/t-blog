@@ -1,10 +1,12 @@
 package com.xsh.blog.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.xsh.blog.constant.WebConst;
 import com.xsh.blog.controller.admin.AttachController;
-import com.xsh.blog.dao.AttachVoMapper;
-import com.xsh.blog.dao.CommentVoMapper;
+import com.xsh.blog.dao.AttachMapper;
+import com.xsh.blog.dao.CommentsMapper;
 import com.xsh.blog.dao.ContentVoMapper;
 import com.xsh.blog.dao.MetaVoMapper;
 import com.xsh.blog.dto.MetaDto;
@@ -14,6 +16,7 @@ import com.xsh.blog.model.Bo.ArchiveBo;
 import com.xsh.blog.model.Bo.BackResponseBo;
 import com.xsh.blog.model.Bo.StatisticsBo;
 import com.xsh.blog.model.Vo.*;
+import com.xsh.blog.model.entity.Comments;
 import com.xsh.blog.service.ISiteService;
 import com.xsh.blog.utils.DateKit;
 import com.xsh.blog.utils.TaleUtils;
@@ -39,13 +42,13 @@ import java.util.*;
 public class SiteServiceImpl implements ISiteService {
 
     @Resource
-    private CommentVoMapper commentDao;
+    private CommentsMapper commentsMapper;
 
     @Resource
     private ContentVoMapper contentDao;
 
     @Resource
-    private AttachVoMapper attachDao;
+    private AttachMapper attachMapper;
 
     @Resource
     private MetaVoMapper metaDao;
@@ -57,11 +60,12 @@ public class SiteServiceImpl implements ISiteService {
             limit = 10;
         }
         CommentVoExample example = new CommentVoExample();
-        example.setOrderByClause("created desc");
+        QueryWrapper<Comments> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("created");
         PageHelper.startPage(1, limit);
-        List<CommentVo> byPage = commentDao.selectByExampleWithBLOBs(example);
+        List<Comments> byPage = commentsMapper.selectList(queryWrapper);
         log.debug("Exit recentComments method");
-        return byPage;
+        return BeanUtil.copyToList(byPage, CommentVo.class);
     }
 
     @Override
@@ -145,7 +149,7 @@ public class SiteServiceImpl implements ISiteService {
     @Override
     public CommentVo getComment(Integer coid) {
         if (null != coid) {
-            return commentDao.selectByPrimaryKey(coid);
+            return BeanUtil.copyProperties(commentsMapper.selectById(coid), CommentVo.class);
         }
         return null;
     }
@@ -159,9 +163,9 @@ public class SiteServiceImpl implements ISiteService {
         contentVoExample.createCriteria().andTypeEqualTo(Types.ARTICLE.getType()).andStatusEqualTo(Types.PUBLISH.getType());
         Long articles =   contentDao.countByExample(contentVoExample);
 
-        Long comments = commentDao.countByExample(new CommentVoExample());
+        Long comments = commentsMapper.selectCount(new QueryWrapper<>());
 
-        Long attachs = attachDao.countByExample(new AttachVoExample());
+        Long attachs = attachMapper.selectCount(new QueryWrapper<>());
 
         MetaVoExample metaVoExample = new MetaVoExample();
         metaVoExample.createCriteria().andTypeEqualTo(Types.LINK.getType());

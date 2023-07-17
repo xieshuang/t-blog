@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsh.blog.dao.CommentsMapper">
+
+    <resultMap type="com.xsh.blog.model.entity.Comments" id="CommentsMap">
+        <result property="coid" column="coid" jdbcType="INTEGER"/>
+        <result property="cid" column="cid" jdbcType="INTEGER"/>
+        <result property="created" column="created" jdbcType="INTEGER"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="authorId" column="author_id" jdbcType="INTEGER"/>
+        <result property="ownerId" column="owner_id" jdbcType="INTEGER"/>
+        <result property="mail" column="mail" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="agent" column="agent" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="parent" column="parent" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>
+

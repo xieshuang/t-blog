@@ -1,12 +1,14 @@
 package com.xsh.blog.service;
 
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.xsh.blog.model.Vo.AttachVo;
+import com.xsh.blog.model.entity.Attach;
 
 /**
  */
-public interface IAttachService {
+public interface IAttachService extends IService<Attach> {
     /**
      * 分页查询附件
      * @param page

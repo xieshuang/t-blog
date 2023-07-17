@@ -1,21 +1,23 @@
 package com.xsh.blog.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xsh.blog.constant.WebConst;
-import com.xsh.blog.dao.CommentVoMapper;
+import com.xsh.blog.dao.CommentsMapper;
 import com.xsh.blog.exception.BusinessException;
 import com.xsh.blog.model.Bo.CommentBo;
 import com.xsh.blog.model.Vo.CommentVo;
 import com.xsh.blog.model.Vo.CommentVoExample;
 import com.xsh.blog.model.Vo.ContentVo;
+import com.xsh.blog.model.entity.Comments;
 import com.xsh.blog.service.ICommentService;
 import com.xsh.blog.service.IContentService;
 import com.xsh.blog.utils.DateKit;
 import com.xsh.blog.utils.TaleUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  */
 @Service
-public class CommentServiceImpl implements ICommentService {
+public class CommentServiceImpl extends ServiceImpl<CommentsMapper, Comments> implements ICommentService {
 
     @Resource
-    private CommentVoMapper commentDao;
+    private CommentsMapper commentsMapper;
 
     @Resource
     private IContentService contentService;
@@ -62,7 +65,7 @@ public class CommentServiceImpl implements ICommentService {
         comments.setOwnerId(contents.getAuthorId());
         comments.setStatus("not_audit");
         comments.setCreated(DateKit.getCurrentUnixTime());
-        commentDao.insertSelective(comments);
+        commentsMapper.insert(BeanUtil.copyProperties(comments, Comments.class));
 
         ContentVo temp = new ContentVo();
         temp.setCid(contents.getCid());
@@ -80,12 +83,17 @@ public class CommentServiceImpl implements ICommentService {
             CommentVoExample commentVoExample = new CommentVoExample();
             commentVoExample.createCriteria().andCidEqualTo(cid).andParentEqualTo(0).andStatusIsNotNull().andStatusEqualTo("approved");
             commentVoExample.setOrderByClause("coid desc");
-            List<CommentVo> parents = commentDao.selectByExampleWithBLOBs(commentVoExample);
-            PageInfo<CommentVo> commentPaginator = new PageInfo<>(parents);
+            QueryWrapper<Comments> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("cid", cid);
+            queryWrapper.eq("parent", 0);
+            queryWrapper.eq("status", "approved");
+            List<Comments> parents = commentsMapper.selectList(queryWrapper);
+            List<CommentVo> datas = BeanUtil.copyToList(parents, CommentVo.class);
+            PageInfo<CommentVo> commentPaginator = new PageInfo<>(datas);
             PageInfo<CommentBo> returnBo = copyPageInfo(commentPaginator);
-            if (parents.size() != 0) {
-                List<CommentBo> comments = new ArrayList<>(parents.size());
-                parents.forEach(parent -> {
+            if (datas.size() != 0) {
+                List<CommentBo> comments = new ArrayList<>(datas.size());
+                datas.forEach(parent -> {
                     CommentBo comment = new CommentBo(parent);
                     comments.add(comment);
                 });
@@ -97,10 +105,10 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public PageInfo<CommentVo> getCommentsWithPage(CommentVoExample commentVoExample, int page, int limit) {
+    public PageInfo<CommentVo> getCommentsWithPage(QueryWrapper<Comments> queryWrapper, int page, int limit) {
         PageHelper.startPage(page, limit);
-        List<CommentVo> commentVos = commentDao.selectByExampleWithBLOBs(commentVoExample);
-        PageInfo<CommentVo> pageInfo = new PageInfo<>(commentVos);
+        List<Comments> commentVos = commentsMapper.selectList(queryWrapper);
+        PageInfo<CommentVo> pageInfo = new PageInfo<>(BeanUtil.copyToList(commentVos, CommentVo.class));
         return pageInfo;
     }
 
@@ -108,7 +116,8 @@ public class CommentServiceImpl implements ICommentService {
     @Transactional
     public void update(CommentVo comments) {
         if (null != comments && null != comments.getCoid()) {
-            commentDao.updateByPrimaryKeyWithBLOBs(comments);
+            Comments comment = BeanUtil.copyProperties(comments, Comments.class);
+            commentsMapper.updateById(comment);
         }
     }
 
@@ -118,7 +127,7 @@ public class CommentServiceImpl implements ICommentService {
         if (null == coid) {
             throw new BusinessException("主键为空");
         }
-        commentDao.deleteByPrimaryKey(coid);
+        commentsMapper.deleteById(coid);
         ContentVo contents = contentService.getContents(cid + "");
         if (null != contents && contents.getCommentsNum() > 0) {
             ContentVo temp = new ContentVo();
@@ -131,7 +140,7 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public CommentVo getCommentById(Integer coid) {
         if (null != coid) {
-            return commentDao.selectByPrimaryKey(coid);
+            return BeanUtil.copyProperties(commentsMapper.selectById(coid),CommentVo.class);
         }
         return null;
     }

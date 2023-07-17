@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsh.blog.dao.AttachMapper">
+
+    <resultMap type="com.xsh.blog.model.entity.Attach" id="AttachMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="fname" column="fname" jdbcType="VARCHAR"/>
+        <result property="ftype" column="ftype" jdbcType="VARCHAR"/>
+        <result property="fkey" column="fkey" jdbcType="VARCHAR"/>
+        <result property="authorId" column="author_id" jdbcType="INTEGER"/>
+        <result property="created" column="created" jdbcType="INTEGER"/>
+    </resultMap>
+
+</mapper>
+
