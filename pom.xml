@@ -40,6 +40,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+            <version>4.27.0</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
