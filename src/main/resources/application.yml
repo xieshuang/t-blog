@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: Root@1234
+    password: admin123456
   liquibase:
     change-log: classpath:/liquibase/master.xml
   thymeleaf:

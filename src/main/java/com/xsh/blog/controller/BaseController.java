@@ -5,7 +5,7 @@ import com.xsh.blog.model.Vo.UserVo;
 import com.xsh.blog.utils.MapCache;
 import com.xsh.blog.utils.TaleUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  */
