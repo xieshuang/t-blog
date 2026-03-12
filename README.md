@@ -43,13 +43,25 @@
 ##### 2026-03
 1. 升级 Spring Boot 从 2.7.9 到 3.2.5
 2. 升级 Java 从 1.8 到 17
-3. 升级 MyBatis 从 1.3.2 到 3.0.3
-4. 升级 PageHelper 从 1.4.7 到 2.1.0
-5. 升级 Druid 从 1.0.18 到 1.2.21
-6. 升级 Jedis 从 2.5.2 到 5.1.0
-7. 升级 Lombok 从 1.18.28 到 1.18.30
+3. 升级 MyBatis 1.3.2 到 3.0.3
+4. 升级 PageHelper 1.4.7 到 2.1.0
+5. 升级 Druid 1.0.18 到 1.2.21
+6. 升级 Jedis 2.5.2 到 5.1.0
+7. 升级 Lombok 1.18.28 到 1.18.30
 8. 移除过时的 logback-redis-appender 依赖
 9. 迁移 javax.* 到 jakarta.* (Jakarta EE 9+)
+10. 升级 commons-lang3 到 3.18.0 修复安全漏洞
+11. 升级 liquibase 到 4.27.0
+12. 升级 logstash-logback-encoder 到 8.0
+13. 前端 CDN 从 bootcss.com 替换为 cdnjs.cloudflare.com/unpkg.com
+14. 升级 jQuery 2.2.3 到 3.7.1
+15. 升级 Bootstrap 3.3.7 到 3.4.1
+16. 升级 highlight.js 9.9.0 到 11.9.0
+17. 升级 SweetAlert2 6.4.1 到 11.10.0
+18. 升级 Dropzone 4.3.0 到 5.9.3
+19. 升级 Select2 3.4.8 到 4.0.13
+20. 升级 jQuery Validate 1.15.1 到 1.19.5
+21. 升级 clipboard.js 1.6.0 到 2.0.11
 
 ##### 2023-07
 1. 更新MySQL驱动版本到8x
