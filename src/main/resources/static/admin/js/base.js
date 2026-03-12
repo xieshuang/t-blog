@@ -103,10 +103,10 @@ $.tale.prototype.alertError = function (options) {
  * @param options
  */
 $.tale.prototype.alertBox = function (options) {
-    swal({
+    Swal.fire({
         title: options.title,
         text: options.text,
-        type: options.type,
+        icon: options.type,
         timer: options.timer || 9999,
         showCloseButton: options.showCloseButton,
         showCancelButton: options.showCancelButton,
@@ -116,8 +116,10 @@ $.tale.prototype.alertBox = function (options) {
         confirmButtonText: options.confirmButtonText || '确定',
         cancelButtonText: options.cancelButtonText || '取消'
     }).then(function (e) {
-        options.then && options.then(e);
-    }).catch(swal.noop);
+        if (e.isConfirmed) {
+            options.then && options.then(e);
+        }
+    });
 };
 
 /**
