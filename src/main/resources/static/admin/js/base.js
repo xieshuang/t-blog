@@ -131,14 +131,15 @@ $.tale.prototype.post = function (options) {
         type: 'POST',
         url: options.url,
         data: options.data || {},
-        async: options.async || false,
+        async: options.async !== undefined ? options.async : true,
         dataType: 'json',
         success: function (result) {
             self.hideLoading();
             options.success && options.success(result);
         },
-        error: function () {
-            //
+        error: function (xhr, status, error) {
+            self.hideLoading();
+            options.error && options.error(error);
         }
     });
 };
