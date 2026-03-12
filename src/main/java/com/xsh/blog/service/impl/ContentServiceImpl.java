@@ -124,8 +124,8 @@ public class ContentServiceImpl implements IContentService {
                 ContentVoExample contentVoExample = new ContentVoExample();
                 contentVoExample.createCriteria().andSlugEqualTo(id);
                 List<ContentVo> contentVos = contentDao.selectByExampleWithBLOBs(contentVoExample);
-                if (contentVos.size() != 1) {
-                    throw new BusinessException("query content by id and return is not one");
+                if (contentVos.isEmpty()) {
+                    return null;
                 }
                 return contentVos.get(0);
             }
