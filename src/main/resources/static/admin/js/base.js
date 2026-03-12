@@ -1,10 +1,8 @@
 /**
- *  Tale全局函数对象   var tale = new $.tale();
+ *  Tale全局函数对象
  */
-$.extend({
-    tale: function () {
-    }
-});
+$.tale = function() {};
+$.extend($.tale.prototype, {
 
 /**
  * tale alert删除  // todo: 减少耦合度,链式操作替代  2017-02-27
