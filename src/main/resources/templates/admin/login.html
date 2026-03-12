@@ -62,10 +62,17 @@
             font-weight: 600;
             color: white;
             transition: all 0.3s;
+            cursor: pointer;
         }
         .btn-login:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn-login:disabled {
+            background: #ccc;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
         }
         .input-group-text {
             background: transparent;
@@ -90,6 +97,61 @@
             color: #667eea;
             text-decoration: none;
         }
+        /* 滑块验证样式 */
+        .slider-captcha {
+            position: relative;
+            margin-bottom: 20px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .slider-captcha-bg {
+            height: 44px;
+            background: #e8e8e8;
+            border-radius: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        .slider-captcha-slider {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 44px;
+            width: 44px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+            z-index: 2;
+        }
+        .slider-captcha-slider.success {
+            background: #52c41a;
+        }
+        .slider-captcha-tip {
+            position: absolute;
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .slider-captcha-tip.success {
+            color: #52c41a;
+        }
+        .slider-captcha-track {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 44px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 22px;
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
@@ -112,11 +174,20 @@
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     </div>
                 </div>
+                <div class="mb-4">
+                    <div class="slider-captcha" id="sliderCaptcha">
+                        <div class="slider-captcha-bg">
+                            <div class="slider-captcha-track" id="sliderTrack"></div>
+                            <div class="slider-captcha-slider" id="sliderBtn"><i class="fas fa-angle-right"></i></div>
+                            <span class="slider-captcha-tip" id="sliderTip">向右滑动验证</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="mb-4 form-check">
                     <input type="checkbox" class="form-check-input" id="remember" name="remeber_me"/>
                     <label class="form-check-label remember-me" for="remember">记住登录</label>
                 </div>
-                <button type="submit" class="btn btn-login w-100">
+                <button type="submit" class="btn btn-login w-100" id="loginBtn" disabled>
                     <i class="fas fa-sign-in-alt me-2"></i>登 录
                 </button>
             </form>
@@ -129,36 +200,117 @@
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js}"></script>
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.0/sweetalert2.all.min.js}"></script>
-    <script th:src="@{/admin/js/base.js}"></script>
-    <script type="text/javascript">
-        function checkForm() {
-            var username = $("input[name='username']").val();
-            var password = $("input[name='password']").val();
-            var remeber_me = $("input[name='remeber_me']").is(':checked');
+    <script>
+        $(function() {
+            var sliderCaptcha = {
+                isVerified: false,
+                isMoving: false,
+                startX: 0,
+                currentX: 0,
+                maxX: 0,
+                
+                init: function() {
+                    var self = this;
+                    var $slider = $('#sliderBtn');
+                    var $track = $('#sliderTrack');
+                    var $tip = $('#sliderTip');
+                    var $captcha = $('#sliderCaptcha');
+                    
+                    this.maxX = $captcha.width() - $slider.width() - 10;
+                    
+                    $slider.on('mousedown touchstart', function(e) {
+                        if (self.isVerified) return;
+                        e.preventDefault();
+                        self.isMoving = true;
+                        self.startX = e.type === 'touchstart' ? e.originalEvent.touches[0].pageX : e.pageX;
+                    });
+                    
+                    $(document).on('mousemove touchmove', function(e) {
+                        if (!self.isMoving || self.isVerified) return;
+                        self.currentX = e.type === 'touchmove' ? e.originalEvent.touches[0].pageX : e.pageX;
+                        var diffX = self.currentX - self.startX;
+                        
+                        if (diffX < 0) diffX = 0;
+                        if (diffX > self.maxX) diffX = self.maxX;
+                        
+                        $slider.css('left', diffX + 'px');
+                        $track.width(diffX + $slider.width() / 2);
+                    });
+                    
+                    $(document).on('mouseup touchend', function(e) {
+                        if (!self.isMoving) return;
+                        self.isMoving = false;
+                        
+                        if (self.currentX - self.startX >= self.maxX - 5) {
+                            // 验证成功
+                            self.isVerified = true;
+                            $slider.addClass('success');
+                            $slider.html('<i class="fas fa-check"></i>');
+                            $tip.addClass('success').text('验证成功');
+                            $('#loginBtn').prop('disabled', false);
+                        } else {
+                            // 验证失败，重置
+                            $slider.css('left', '0');
+                            $track.width(0);
+                            $tip.text('验证失败，请重试');
+                            setTimeout(function() {
+                                $tip.text('向右滑动验证');
+                            }, 1500);
+                        }
+                    });
+                },
+                
+                reset: function() {
+                    this.isVerified = false;
+                    $('#sliderBtn').removeClass('success').css('left', '0').html('<i class="fas fa-angle-right"></i>');
+                    $('#sliderTrack').width(0);
+                    $('#sliderTip').removeClass('success').text('向右滑动验证');
+                    $('#loginBtn').prop('disabled', true);
+                }
+            };
             
-            $.post('/admin/login', {
-                username: username,
-                password: password,
-                remeber_me: remeber_me
-            }, function(result) {
-                if (result && result.success) {
-                    window.location.href = '/admin/index';
-                } else {
+            sliderCaptcha.init();
+            
+            window.checkForm = function() {
+                if (!sliderCaptcha.isVerified) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '请先完成滑块验证',
+                        timer: 2000
+                    });
+                    return false;
+                }
+                
+                var username = $("input[name='username']").val();
+                var password = $("input[name='password']").val();
+                var remeber_me = $("input[name='remeber_me']").is(':checked');
+                
+                $.post('/admin/login', {
+                    username: username,
+                    password: password,
+                    remeber_me: remeber_me
+                }, function(result) {
+                    if (result && result.success) {
+                        window.location.href = '/admin/index';
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '登录失败',
+                            text: result.msg || '用户名或密码错误'
+                        });
+                        sliderCaptcha.reset();
+                    }
+                }).fail(function() {
                     Swal.fire({
                         icon: 'error',
                         title: '登录失败',
-                        text: result.msg || '用户名或密码错误'
+                        text: '网络错误'
                     });
-                }
-            }).fail(function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: '登录失败',
-                    text: '网络错误'
+                    sliderCaptcha.reset();
                 });
-            });
-            return false;
-        }
+                return false;
+            };
+        });
     </script>
 </body>
 </html>
