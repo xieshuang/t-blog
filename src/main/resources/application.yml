@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: admin123456
+    password: root_password_123
   liquibase:
     change-log: classpath:/liquibase/master.xml
   thymeleaf:
@@ -21,3 +21,16 @@ mybatis:
   type-aliases-package: com.xsh.blog.dao
 server:
   port: 8080
+
+blog:
+  rate-limit:
+    enabled: true
+    comment:
+      permits: 5
+      period: 60
+    login:
+      permits: 10
+      period: 60
+    default:
+      permits: 60
+      period: 60

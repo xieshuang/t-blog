@@ -16,9 +16,12 @@ import jakarta.annotation.Resource;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Resource
     private BaseInterceptor baseInterceptor;
+    @Resource
+    private RateLimitInterceptor rateLimitInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(baseInterceptor);
+        registry.addInterceptor(rateLimitInterceptor);
     }
 
     /**

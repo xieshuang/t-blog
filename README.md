@@ -14,7 +14,32 @@
 - Markdown 编辑器：Editor.md
 - 数据库：MySQL、Liquibase
 
-### 2.部署事宜
+### 2.本地开发
+
+```bash
+# 编译项目
+mvn clean compile
+
+# 运行项目
+mvn spring-boot:run
+```
+
+访问 http://localhost:8080
+
+### 3.Docker 部署
+
+```bash
+# 构建并启动 (需要先修改 docker-compose.yml 中的端口映射)
+docker-compose up -d
+
+# 查看日志
+docker-compose logs -f blog
+
+# 停止
+docker-compose down
+```
+
+### 4.传统部署
 
 - 1、服务器安装mysql并创建空的数据库blog
 - 2、项目打成jar包上传到服务器上
@@ -25,10 +50,11 @@
 - 5、可以配置nginx进行代理访问
 
 
-### 4.环境要求
+### 5.环境要求
 
 - JDK 17+
 - MySQL 8.0+
+- Docker (可选)
 
 【更新记录】
 
@@ -54,6 +80,8 @@
 19. 升级 Select2 3.4.8 到 4.0.13
 20. 升级 jQuery Validate 1.15.1 到 1.19.5
 21. 升级 clipboard.js 1.6.0 到 2.0.11
+22. 添加请求频率限制功能 (Guava RateLimiter)
+23. 添加 Docker 支持 (Dockerfile + docker-compose.yml)
 
 ##### 2023-07
 1. 更新MySQL驱动版本到8x

@@ -161,3 +161,125 @@ example.createCriteria().andTypeEqualTo(Types.ARTICLE.getType());
 2. **Liquibase**: 首次启动自动执行数据库迁移
 3. **Redis**: 可选，不配置不影响运行
 4. **后台入口**: `/admin` (默认账号: admin, 密码: 123456)
+
+## 6. 日志规范
+
+```java
+// 正确: 使用占位符
+log.info("get article: cid={}", cid);
+log.error("comment publish failed: e={}", e.getMessage());
+
+// 避免: 字符串拼接
+log.info("get article: " + cid);  // 不推荐
+```
+
+- 使用 `@Slf4j` 注解
+- 业务日志使用 `log.info`
+- 异常日志使用 `log.error`，包含 `e` 参数
+- 避免 `System.out.println`
+
+## 7. API 设计规范
+
+```java
+// 页面路由
+@GetMapping(value = "/")
+public String index(HttpServletRequest request) {
+    return this.render("index");
+}
+
+// REST API
+@PostMapping(value = "comment")
+@ResponseBody
+public RestResponseBo comment(...) {
+    return RestResponseBo.ok();
+}
+
+// 路径参数
+@GetMapping(value = "article/{cid}")
+public String getArticle(@PathVariable String cid) {}
+
+// 查询参数
+@GetMapping(value = "page/{p}")
+public String index(@PathVariable int p, 
+                   @RequestParam(value = "limit", defaultValue = "12") int limit) {}
+```
+
+- 增删改查使用 `@PostMapping`, `@DeleteMapping`, `@PutMapping`, `@GetMapping`
+- 路径参数用 `@PathVariable`
+- 查询参数用 `@RequestParam`
+- AJAX 接口必须加 `@ResponseBody`
+
+## 8. MyBatis 使用规范
+
+```java
+// Mapper 接口 (DAO 层)
+public interface ContentVoMapper {
+    int deleteByPrimaryKey(Integer cid);
+    int insert(ContentVo record);
+    ContentVo selectByPrimaryKey(Integer cid);
+    List<ContentVo> selectByExampleWithBLOBs(ContentVoExample example);
+}
+
+// Service 层使用
+@Resource
+private ContentVoMapper contentDao;
+
+// 查询示例
+ContentVoExample example = new ContentVoExample();
+example.createCriteria().andTypeEqualTo(Types.ARTICLE.getType());
+List<ContentVo> list = contentDao.selectByExampleWithBLOBs(example);
+```
+
+- Mapper XML 文件放在 `src/main/resources/mapper/`
+- 使用 Example 类构建动态查询条件
+- BLOBs 字段使用 `selectByExampleWithBLOBs`
+
+## 9. VO/BO/DTO 使用规范
+
+| 类型 | 用途 | 位置 |
+|------|------|------|
+| VO (Value Object) | 视图层对象,对应数据库表 | `model/Vo/` |
+| BO (Business Object) | 业务层组装对象 | `model/Bo/` |
+| DTO (Data Transfer) | 数据传输对象 | `dto/` |
+
+```java
+// VO: 对应数据库表结构
+public class ContentVo {
+    private Integer cid;
+    private String title;
+    private String content;
+}
+
+// BO: 业务组装对象
+public class ArchiveBo {
+    private String date;
+    private List<ContentVo> articles;
+}
+
+// DTO: 前后端数据传输
+public class MetaDto {
+    private Integer mid;
+    private String name;
+    private Integer count;
+}
+```
+
+## 10. 常用工具类
+
+| 工具类 | 用途 |
+|--------|------|
+| `TaleUtils` | 通用工具(登录/权限/XSS过滤) |
+| `IPKit` | IP地址获取 |
+| `PatternKit` | 正则验证 |
+| `MapCache` | 内存缓存 |
+| `WebConst` | 静态常量 |
+
+## 11. 代码审查检查点
+
+- [ ] Controller 只负责请求转发,不包含业务逻辑
+- [ ] Service 处理业务逻辑,使用事务 `@Transactional`
+- [ ] DAO/Mapper 负责数据访问
+- [ ] 所有 API 必须有参数校验
+- [ ] 敏感数据不记录日志
+- [ ] 使用 `RestResponseBo.fail()` 返回业务错误
+- [ ] 全局异常由 `GlobalControllerExceptionHandler` 处理
